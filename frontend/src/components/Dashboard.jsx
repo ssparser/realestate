@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useFetch from "../customHooks/useFetch";
-import SimpleMediaCard from './SimpleMediaCard';
+import PropertyCard from './PropertyCard';
 
 function Dashboard() {
   const [folders, setFolders] = useState([]);
@@ -33,7 +33,7 @@ function Dashboard() {
         {folders.map((folder, index) => (
             <li key={index} style={{ margin: '10px 0' }}>
             <div onClick={() => handleClick(folder)} style={{ cursor: 'pointer' }}>
-              <SimpleMediaCard propertyName={folder} />
+              <PropertyCard propertyName={folder} />
             </div>
           </li>
         ))}

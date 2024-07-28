@@ -4,7 +4,6 @@ import { styled } from "@mui/system";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import { CardActionArea } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
 const styles = {
@@ -17,7 +16,7 @@ const styles = {
   },
 };
 
-function SimpleMediaCard({ propertyName }) {
+function PropertyCard({ propertyName }) {
   const Media = styled(CardMedia)({
     height: 200,
   });
@@ -36,8 +35,8 @@ function SimpleMediaCard({ propertyName }) {
   );
 }
 
-SimpleMediaCard.propTypes = {
+PropertyCard.propTypes = {
   propertyName: PropTypes.string,
 };
 
-export default SimpleMediaCard;
+export default PropertyCard;

@@ -46,6 +46,10 @@ public class AWSService {
     }
 
     private String getFileName(MultipartFile document) {
+        if(itemName.isEmpty())
+        {
+            return propertyName + "/" + document.getOriginalFilename().replace(" ", "_");
+        }
         return  propertyName + "/" + itemName + "/" + document.getOriginalFilename().replace(" ", "_");
     }
 
