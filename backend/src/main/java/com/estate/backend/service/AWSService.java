@@ -32,18 +32,18 @@ public class AWSService {
     }
 
     public void upload(MultipartFile document) throws IOException {
-
-        File file = convertToFile(document);
-        String Objectname = getFileName(document);
-
-        uploadToS3(Objectname, file);
-
+        String objectName = getFileName(document);
+        uploadToS3(objectName, document);
     }
 
-    private void uploadToS3(String fileName, File file) {
-        amazonS3.putObject(new PutObjectRequest(bucketName, fileName, file)
+    private void uploadToS3(String fileName, MultipartFile multipartFile) throws IOException {
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentLength(multipartFile.getSize());
+        metadata.setContentType(multipartFile.getContentType());
+        amazonS3.putObject(new PutObjectRequest(bucketName, fileName, multipartFile.getInputStream(), metadata)
                 .withCannedAcl(CannedAccessControlList.BucketOwnerFullControl));
     }
+
 
     private String getFileName(MultipartFile document) {
         if(itemName.isEmpty())
@@ -53,11 +53,4 @@ public class AWSService {
         return  propertyName + "/" + itemName + "/" + document.getOriginalFilename().replace(" ", "_");
     }
 
-    private File convertToFile(MultipartFile multipartFile) throws IOException {
-        File file = new File(multipartFile.getOriginalFilename());
-        FileOutputStream fos = new FileOutputStream(file);
-        fos.write(multipartFile.getBytes());
-        fos.close();
-        return file;
-    }
 }
