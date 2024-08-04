@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useFetch from "../customHooks/useFetch";
-import PropertyCard from './PropertyCard';
+import PropertyCard from "./PropertyCard";
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import BottomAppBar from "./common/BottomAppBar";
+import { useModal } from "../store/ModalProvider";
+
 
 function Dashboard() {
   const [folders, setFolders] = useState([]);
   const navigate = useNavigate();
+  const { showModal } = useModal();
+
 
   const { response, error, loading } = useFetch({
     url: "/folders",
@@ -27,19 +34,23 @@ function Dashboard() {
   };
 
   return (
-    <div>
-      <h2>Folders</h2>
-      <ul>
-        {folders.map((folder, index) => (
-            <li key={index} style={{ margin: '10px 0' }}>
-            <div onClick={() => handleClick(folder)} style={{ cursor: 'pointer' }}>
-              <PropertyCard propertyName={folder} />
-            </div>
-          </li>
+    <>
+    <Box sx={{ p: 4 }}>
+      <Grid container spacing={4} justifyContent="center">
+        {folders.map((folder) => (
+          <Grid item xs={12} sm={6} md={4} lg={3} key={folder}>
+            <Box sx={{ maxWidth: 280, margin: 'auto' }}>
+              <PropertyCard
+                propertyName={folder}
+                onClick={() => handleClick(folder)}
+              />
+            </Box>
+          </Grid>
         ))}
-      </ul>
-      
-    </div>
+      </Grid>
+    </Box>
+    <BottomAppBar  onClick={() => showModal('addDetails')}/>
+    </>
   );
 }
 

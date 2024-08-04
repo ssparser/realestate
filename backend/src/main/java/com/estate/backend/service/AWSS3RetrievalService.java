@@ -12,6 +12,7 @@ import com.amazonaws.services.s3.model.ListObjectsV2Request;
 import com.amazonaws.services.s3.model.ListObjectsV2Result;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
+
 @Service
 public class AWSS3RetrievalService {
 
@@ -52,5 +53,23 @@ public class AWSS3RetrievalService {
                 .map(S3ObjectSummary::getKey)
                 .collect(Collectors.toList());
     }
+
+    public List<String> getObjectUrls(String prefix) {
+        ListObjectsV2Request req = new ListObjectsV2Request()
+                .withBucketName(bucketName)
+                .withPrefix(prefix)
+                .withDelimiter("/");
+
+
+        ListObjectsV2Result result = amazonS3.listObjectsV2(req);
+
+        return result.getObjectSummaries().stream()
+                .map(s3Object -> generateS3ObjectUrl(s3Object.getKey()))
+                .collect(Collectors.toList());
+    }
+
+    private String generateS3ObjectUrl(String objectKey) {
+        String fixedObjectKey = objectKey.replace(" ", "+");
+        return String.format("https://%s.s3.amazonaws.com/%s", bucketName, fixedObjectKey);    }
 
 }

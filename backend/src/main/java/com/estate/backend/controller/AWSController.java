@@ -13,6 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
@@ -63,4 +66,9 @@ public class AWSController {
         return awss3RetrievalService.listFiles(prefix);
     }
 
+    @GetMapping("/image")
+    public List<String> getImage(@RequestParam String prefix) {
+        return awss3RetrievalService.getObjectUrls(prefix);
+    }
+    
 }

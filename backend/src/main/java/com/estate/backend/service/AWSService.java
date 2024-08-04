@@ -8,9 +8,7 @@ import com.amazonaws.services.s3.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.File;
 
 @Service
 public class AWSService {
