@@ -9,7 +9,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea } from "@mui/material";
 import useFetch from "../customHooks/useFetch";
-import PropertyCard from "./PropertyCard";
+import PropertyCard from "../components/PropertyCard";
 
 
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./pages/Dashboard";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Property from "./components/Property";
+import Property from "./pages/Property";
 import Item from "./components/Item";
 import { ModalProvider } from "./store/ModalProvider";
 
