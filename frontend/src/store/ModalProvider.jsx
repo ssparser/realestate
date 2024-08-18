@@ -1,7 +1,7 @@
 // ModalContext.js
 import React, { createContext, useState, useContext } from 'react';
-import AddCardModal from '../components/modals/AddCardModal';
-import AddDetailsModal from '../components/modals/AddDetailsModal';
+import AddCardModal from '../modals/AddCardModal';
+import AddDetailsModal from '../modals/AddDetailsModal';
 
 // Create Context
 const ModalContext = createContext();

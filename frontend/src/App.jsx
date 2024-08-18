@@ -3,8 +3,6 @@ import Dashboard from "./components/Dashboard";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Property from "./components/Property";
 import Item from "./components/Item";
-import BottomAppBar from "./components/common/BottomAppBar";
-import Header from "./components/common/Header";
 import { ModalProvider } from "./store/ModalProvider";
 
 function App() {

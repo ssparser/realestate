@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { useModal } from "../store/ModalProvider";
+import { tempData } from "../data/Data";
+import { Box, Container, Grid, Typography } from "@mui/material";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import { CardActionArea } from "@mui/material";
 import useFetch from "../customHooks/useFetch";
 import PropertyCard from "./PropertyCard";
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import BottomAppBar from "./common/BottomAppBar";
-import { useModal } from "../store/ModalProvider";
+
 
 
 function Dashboard() {
@@ -33,25 +38,47 @@ function Dashboard() {
     navigate("/property", { state: { folderName: folder } });
   };
 
+  // return (
+  //   <>
+  //   <Box sx={{ p: 4 }}>
+  //     <Grid container spacing={4} justifyContent="center">
+  //       {folders.map((folder) => (
+  //         <Grid item xs={12} sm={6} md={4} lg={3} key={folder}>
+  //           <Box sx={{ maxWidth: 280, margin: 'auto' }}>
+  //             <PropertyCard
+  //               propertyName={folder}
+  //               onClick={() => handleClick(folder)}
+  //             />
+  //           </Box>
+  //         </Grid>
+  //       ))}
+  //     </Grid>
+  //   </Box>
+  //   <BottomAppBar  onClick={() => showModal('addDetails')}/>
+  //   </>
+  // );
+
   return (
-    <>
-    <Box sx={{ p: 4 }}>
-      <Grid container spacing={4} justifyContent="center">
-        {folders.map((folder) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={folder}>
-            <Box sx={{ maxWidth: 280, margin: 'auto' }}>
-              <PropertyCard
+    <Container 
+    maxWidth = 'false'
+ sx={{
+      ml : '0px',
+      mr : '0px',
+    }}>
+     <Grid container spacing={1} sx={{ marginTop: "20px" }}>
+          {folders.map((folder) => (
+            <Grid item md={3} key={folder}>
+            <PropertyCard
                 propertyName={folder}
                 onClick={() => handleClick(folder)}
               />
-            </Box>
-          </Grid>
-        ))}
-      </Grid>
-    </Box>
-    <BottomAppBar  onClick={() => showModal('addDetails')}/>
-    </>
+            </Grid>
+          ))}
+        </Grid>
+
+        </Container>
   );
+
 }
 
 export default Dashboard;

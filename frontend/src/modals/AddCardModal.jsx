@@ -1,33 +1,30 @@
 import React from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@mui/material';
-import { useModal } from '../../store/ModalProvider';
+import { useModal } from "../store/ModalProvider";
 import { createPortal } from "react-dom";
 
 
-const AddDetailsModal = () => {
+const AddCardModal = () => {
   const { hideModal } = useModal();
 
-  const handleAddDetails = () => {
-    // Add your logic to handle adding details here
+  const handleAddCard = () => {
     hideModal();
   };
 
   return (
     createPortal(
     <Dialog open={true} onClose={hideModal}>
-      <DialogTitle>Add Details</DialogTitle>
+      <DialogTitle>Add New Card</DialogTitle>
       <DialogContent>
-        <TextField autoFocus margin="dense" label="Detail Title" fullWidth />
-        <TextField margin="dense" label="Detail Description" fullWidth />
-        {/* Add more fields as needed */}
+        <TextField autoFocus margin="dense" label="Title" fullWidth />
+        <TextField margin="dense" label="Description" fullWidth />
       </DialogContent>
       <DialogActions>
         <Button onClick={hideModal}>Cancel</Button>
-        <Button onClick={handleAddDetails}>Add Details</Button>
+        <Button onClick={handleAddCard}>Add Card</Button>
       </DialogActions>
     </Dialog>,document.getElementById('modal')
         )
   );
 };
-
-export default AddDetailsModal;
+export default AddCardModal;

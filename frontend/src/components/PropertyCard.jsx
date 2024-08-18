@@ -23,44 +23,67 @@ function PropertyCard({ propertyName, onClick }) {
   }, [response]);
 
   return (
-    <Card
-      sx={{
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        borderRadius: 4,
-        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.12)',
-        overflow: 'hidden',
-      }}
-    >
-      <CardActionArea 
-        onClick={onClick}
-        sx={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}
-      >
-        {loading ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 200 }}>
-            <CircularProgress />
-          </Box>
-        ) : error ? (
-          <Typography color="error" sx={{ p: 2 }}>
-            Error loading image
-          </Typography>
-        ) : (
-          <CardMedia
-            component="img"
-            height="200"
-            image={houseImg}
-            alt="House"
-            sx={{ objectFit: 'cover' }}
-          />
-        )}
-        <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: 'bold' }}>
-            {propertyName.slice(0, -1)}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+    // <Card
+    //   sx={{
+    //     height: '100%',
+    //     display: 'flex',
+    //     flexDirection: 'column',
+    //     borderRadius: 4,
+    //     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.12)',
+    //     overflow: 'hidden',
+    //   }}
+    // >
+    //   <CardActionArea 
+    //     onClick={onClick}
+    //     sx={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}
+    //   >
+    //     {loading ? (
+    //       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 200 }}>
+    //         <CircularProgress />
+    //       </Box>
+    //     ) : error ? (
+    //       <Typography color="error" sx={{ p: 2 }}>
+    //         Error loading image
+    //       </Typography>
+    //     ) : (
+    //       <CardMedia
+    //         component="img"
+    //         height="200"
+    //         image={houseImg}
+    //         alt="House"
+    //         sx={{ objectFit: 'cover' }}
+    //       />
+    //     )}
+    //     <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+    //       <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: 'bold' }}>
+    //         {propertyName.slice(0, -1)}
+    //       </Typography>
+    //     </CardContent>
+    //   </CardActionArea>
+    // </Card>
+
+
+    <Card sx={{ maxWidth: 345, maxHeight: 500,  p: 2, mb: 3 }}>
+    <CardActionArea onClick={onClick}>
+      <CardMedia
+        component="img"
+        height="200"
+        image={houseImg}
+        alt={propertyName.slice(0, -1)}
+        sx={{ objectFit: 'cover' }}
+      
+      />
+      <CardContent sx={{ backgroundColor: "white" }}>
+        <Typography gutterBottom variant="h5" component="div" sx={{fontSize:"1rem"}}>
+          {propertyName.slice(0, -1)}
+        </Typography>
+        {/* <Typography variant="body2" color="text.secondary">
+          {`Price: ${data.price}`}
+        </Typography> */}
+      </CardContent>
+    </CardActionArea>
+  </Card>
+
   );
 }
 
