@@ -25,6 +25,8 @@ public class AWSController {
     @Autowired
     AWSService awsService;
 
+
+
     @Autowired
     AWSS3RetrievalService awss3RetrievalService;
 
@@ -70,5 +72,8 @@ public class AWSController {
     public List<String> getImage(@RequestParam String prefix) {
         return awss3RetrievalService.getObjectUrls(prefix);
     }
+
+
+
     
 }

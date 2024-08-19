@@ -38,25 +38,7 @@ function Dashboard() {
     navigate("/property", { state: { folderName: folder } });
   };
 
-  // return (
-  //   <>
-  //   <Box sx={{ p: 4 }}>
-  //     <Grid container spacing={4} justifyContent="center">
-  //       {folders.map((folder) => (
-  //         <Grid item xs={12} sm={6} md={4} lg={3} key={folder}>
-  //           <Box sx={{ maxWidth: 280, margin: 'auto' }}>
-  //             <PropertyCard
-  //               propertyName={folder}
-  //               onClick={() => handleClick(folder)}
-  //             />
-  //           </Box>
-  //         </Grid>
-  //       ))}
-  //     </Grid>
-  //   </Box>
-  //   <BottomAppBar  onClick={() => showModal('addDetails')}/>
-  //   </>
-  // );
+
 
   return (
     <Container 
@@ -78,6 +60,27 @@ function Dashboard() {
 
         </Container>
   );
+
+//   return (
+//     <Container 
+//     maxWidth = 'false'
+//  sx={{
+//       ml : '0px',
+//       mr : '0px',
+//     }}>
+//      <Grid container spacing={1} sx={{ marginTop: "20px" }}>
+//           {tempData.map((data) => (
+//             <Grid item md={3} key={data}>
+//             <PropertyCard
+//                 propertyName={data}
+//                 onClick={() => handleClick(data)}
+//               />
+//             </Grid>
+//           ))}
+//         </Grid>
+
+//         </Container>
+//   );
 
 }
 
