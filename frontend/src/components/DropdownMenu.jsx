@@ -14,7 +14,8 @@ function DropdownMenu({ propertyName }) {
   const [open, setOpen] = useState(null);
   const [folders, setFolders] = useState([]);
   const [files, setFiles] = useState([]);
-  const [selectedFolder, setSelectedFolder] = useState(null);
+  const [images, setImages] = useState([]);
+
 
   const {
     response: folderResponse,
@@ -26,35 +27,48 @@ function DropdownMenu({ propertyName }) {
     params: { prefix: propertyName },
   });
 
+
   useEffect(() => {
     if (folderResponse) {
       setFolders(folderResponse);
     }
   }, [folderResponse]);
 
+
   async function getFiles(folder) {
     console.log(folder);
     if (folder) {
       try {
-        const response = await axios.get("http://localhost:8080/files/files", {
-          params: { prefix: folder },
+        const fileResponse = await axios.get("http://localhost:8080/files/files", {
+          params: { prefix: folder }
         });
-        setFiles(response.data);
+        setFiles(fileResponse.data);
         console.log(files);
       } catch (err) {
         console.error("Error fetching files:", err);
       }
+
+      try {
+        const imageResponse = await axios.get("http://localhost:8080/files/image",{
+            params: { prefix: folder }
+        });
+        setImages(imageResponse.data);
+        console.log(images);
+      }
+      catch (err) {
+        console.error("Error fetching images:", err);
+      }
     }
+
+    
   }
 
   const handleToggle = (index, folder) => {
     if (open === index) {
       setOpen(null);
       setFiles([]);
-      setSelectedFolder(null);
     } else {
       setOpen(index);
-      setSelectedFolder(folder);
       getFiles(folder);
     }
   };
@@ -80,7 +94,7 @@ function DropdownMenu({ propertyName }) {
           }}
           onClick={() => handleToggle(index, folder)}
         >
-          <Typography variant="h6">{folder}</Typography>
+{folder.slice(0, -1).substring(folder.slice(0, -1).lastIndexOf('/') + 1)}
           <Collapse in={open === index} timeout="auto" unmountOnExit>
             <Box
               sx={{
@@ -93,20 +107,18 @@ function DropdownMenu({ propertyName }) {
                 <Grid item xs={6}>
                   <CardMedia
                     component="img"
-                    height="200"
-                    image="https://via.placeholder.com/300"
+                    image={images[0]}
                     alt="Before"
-                    sx={{ objectFit: "cover" }}
+                    sx={{ objectFit: "cover", aspectRatio: 3/2 }}
                   />
                   <Typography variant="caption">Before</Typography>
                 </Grid>
                 <Grid item xs={6}>
                   <CardMedia
                     component="img"
-                    height="200"
-                    image="https://via.placeholder.com/300"
+                    image={images[1]}
                     alt="After"
-                    sx={{ objectFit: "cover" }}
+                    sx={{ objectFit: "cover", aspectRatio: 3/2}}
                   />
                   <Typography variant="caption">After</Typography>
                 </Grid>
@@ -120,7 +132,8 @@ function DropdownMenu({ propertyName }) {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        {file}
+                        {file.substring(file.slice(0, -1).lastIndexOf('/') + 1)}
+
                       </a>
                     </li>
                   ))}
