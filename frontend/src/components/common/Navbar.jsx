@@ -11,14 +11,14 @@ function Navbar() {
       position="sticky"
       elevation={0}
       sx={{
-        backgroundColor: "rgb(223, 223, 223)",
+        backgroundColor: "rgb(255, 255, 255)",
         backdropFilter: "blur(10px)",
         WebkitBackdropFilter: "blur(10px)"
       }}
     >
       <Toolbar disableGutters>
-        <Box sx={{ display: "flex", flexGrow: 1, justifyContent: "center" }}>
-          <Custombutton name="Real estate" />
+        <Box sx={{ display: "flex", flexGrow: 1, justifyContent: "flexstart" }}>
+          <Custombutton name="Propertify" />
         </Box>
       </Toolbar>
     </AppBar>

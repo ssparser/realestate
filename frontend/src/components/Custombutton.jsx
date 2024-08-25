@@ -24,9 +24,10 @@ function Custombutton({name})
           className="underline"
           sx={{
             fontFamily: "monospace",
-            fontWeight: 100,
+            fontWeight: 700,
+            fontSize: 'large',
             letterSpacing: ".01rem",
-            color: "black",
+            color: "rgb(66,137,52)",
             
           }}
         >

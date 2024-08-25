@@ -44,14 +44,14 @@ function PropertyCard({ propertyName, onClick }) {
   </Card>
 
 
-  //   <Card sx={{ maxWidth: 345, maxHeight: 500,  p: 2, mb: 3 }}>
+  //   <Card sx={{ maxWidth: 345, maxHeight: 500,  p: 2, mb: 3, borderRadius: 5 }}>
   //   <CardActionArea onClick={onClick}>
   //     <CardMedia
   //       component="img"
   //       height="200"
   //       image={propertyName.image}
   //       alt={propertyName.name}
-  //       sx={{ objectFit: 'cover' }}
+  //       sx={{ objectFit: 'cover', borderRadius: 1 }}
       
   //     />
   //     <CardContent sx={{ backgroundColor: "white" }}>

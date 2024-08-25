@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useModal } from "../store/ModalProvider";
@@ -6,6 +6,7 @@ import { tempData } from "../data/Data";
 import { Box, Container, Grid, Typography, Button } from "@mui/material";
 import PropertyCard from "../components/PropertyCard";
 import useFetch from "../customHooks/useFetch";
+import Textgrid from "../components/TextGrid";
 
 function Dashboard() {
   const [folders, setFolders] = useState([]);
@@ -25,7 +26,12 @@ function Dashboard() {
   }, [response]);
 
   const handleClick = (folder) => {
-    navigate("/property", { state: { folderName: folder } });
+    console.log(folder);
+    if (folder) {
+      navigate("/property", { state: { propertyName: folder } });
+    } else {
+      console.error("Folder name is undefined");
+    }
   };
 
   const generateShareLink = async (folderName) => {
@@ -67,6 +73,29 @@ function Dashboard() {
       </Grid>
     </Container>
   );
+
+//     return (
+//       <Fragment>
+//     <Container 
+//     maxWidth = 'false'
+//  sx={{
+//       ml : '0px',
+//       mr : '0px',
+//     }}>
+//      <Grid container spacing={1} sx={{ marginTop: "20px" }}>
+//           {tempData.map((data) => (
+//             <Grid item md={3} key={data}>
+//             <PropertyCard
+//                 propertyName={data}
+//                 onClick={() => handleClick(data)}
+//               />
+//             </Grid>
+//           ))}
+//         </Grid>
+
+//         </Container>
+//         </Fragment>
+//   );
 }
 
 export default Dashboard;
