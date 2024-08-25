@@ -1,6 +1,7 @@
 package com.estate.backend.service;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +26,9 @@ public class AWSS3RetrievalService {
 
         @Value("${aws.s3.bucket.name}")
         private String bucketName;
+
+        private static final List<String> IMAGE_EXTENSIONS = Arrays.asList(".jpg", ".jpeg", ".png", ".gif", ".bmp",
+                        ".tiff", ".webp", ".svg", ".avif");
 
         public List<String> listFolders(String prefix) {
 
@@ -68,6 +72,7 @@ public class AWSS3RetrievalService {
                 ListObjectsV2Result result = amazonS3.listObjectsV2(req);
 
                 return result.getObjectSummaries().stream()
+                                .filter(s3Object -> isImageFile(s3Object.getKey()))
                                 .map(s3Object -> generateS3ObjectUrl(s3Object.getKey()))
                                 .collect(Collectors.toList());
         }
@@ -77,6 +82,8 @@ public class AWSS3RetrievalService {
                 return String.format("https://%s.s3.amazonaws.com/%s", bucketName, fixedObjectKey);
         }
 
-
+        private boolean isImageFile(String key) {
+                return IMAGE_EXTENSIONS.stream().anyMatch(key.toLowerCase()::endsWith);
+        }
 
 }

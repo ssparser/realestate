@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Service
 public class AWSService {
@@ -19,6 +21,9 @@ public class AWSService {
 
     @Value("${aws.s3.bucket.name}")
     private String bucketName;
+
+
+    ArrayList<String> imageExtensions = new ArrayList<>(Arrays.asList("jpg","jpeg","png","gif","bmp","tiff","webp","svg"));
 
     String propertyName = "";
     String itemName = "";

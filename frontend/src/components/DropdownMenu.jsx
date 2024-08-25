@@ -43,7 +43,6 @@ function DropdownMenu({ propertyName }) {
           params: { prefix: folder }
         });
         setFiles(fileResponse.data);
-        console.log(files);
       } catch (err) {
         console.error("Error fetching files:", err);
       }
@@ -67,6 +66,7 @@ function DropdownMenu({ propertyName }) {
     if (open === index) {
       setOpen(null);
       setFiles([]);
+      setImages([]);
     } else {
       setOpen(index);
       getFiles(folder);
