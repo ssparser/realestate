@@ -6,33 +6,34 @@ import { tempData } from "../data/Data";
 import { Box, Container, Grid, Typography, Button } from "@mui/material";
 import PropertyCard from "../components/PropertyCard";
 import useFetch from "../customHooks/useFetch";
-import Textgrid from "../components/TextGrid";
+import AddDetailsModal from "../modals/AddPropertyModal";
+import BottomNavbar from "../components/common/BottomNavbar";
 
 function Dashboard() {
   const [folders, setFolders] = useState([]);
   const navigate = useNavigate();
   const { showModal } = useModal();
 
-  const { response, error, loading } = useFetch({
-    url: "/folders",
-    method: "GET",
-    params: { prefix: "" },
-  });
+  // const { response, error, loading } = useFetch({
+  //   url: "/folders",
+  //   method: "GET",
+  //   params: { prefix: "" },
+  // });
 
-  useEffect(() => {
-    if (response != null) {
-      setFolders(response);
-    }
-  }, [response]);
+  // useEffect(() => {
+  //   if (response != null) {
+  //     setFolders(response);
+  //   }
+  // }, [response]);
 
-  const handleClick = (folder) => {
-    console.log(folder);
-    if (folder) {
-      navigate("/property", { state: { propertyName: folder } });
-    } else {
-      console.error("Folder name is undefined");
-    }
-  };
+  // const handleClick = (folder) => {
+  //   console.log(folder);
+  //   if (folder) {
+  //     navigate("/property", { state: { propertyName: folder } });
+  //   } else {
+  //     console.error("Folder name is undefined");
+  //   }
+  // };
 
   const generateShareLink = async (folderName) => {
     try {
@@ -48,10 +49,11 @@ function Dashboard() {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  // if (loading) return <div>Loading...</div>;
+  // if (error) return <div>Error: {error.message}</div>;
 
   return (
+    <Fragment>
     <Container maxWidth="false" sx={{ ml: '0px', mr: '0px' }}>
       <Grid container spacing={2} sx={{ marginTop: "20px" }}>
         {folders.map((folder) => (
@@ -71,31 +73,13 @@ function Dashboard() {
           </Grid>
         ))}
       </Grid>
+      
     </Container>
+    <BottomNavbar onClick={() => showModal("addProperty")}/>
+    </Fragment>
   );
 
-//     return (
-//       <Fragment>
-//     <Container 
-//     maxWidth = 'false'
-//  sx={{
-//       ml : '0px',
-//       mr : '0px',
-//     }}>
-//      <Grid container spacing={1} sx={{ marginTop: "20px" }}>
-//           {tempData.map((data) => (
-//             <Grid item md={3} key={data}>
-//             <PropertyCard
-//                 propertyName={data}
-//                 onClick={() => handleClick(data)}
-//               />
-//             </Grid>
-//           ))}
-//         </Grid>
 
-//         </Container>
-//         </Fragment>
-//   );
 }
 
 export default Dashboard;

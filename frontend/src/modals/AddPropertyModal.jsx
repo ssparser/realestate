@@ -12,8 +12,9 @@ import {
 import { PhotoCamera } from "@mui/icons-material";
 import { useModal } from "../store/ModalProvider";
 import { createPortal } from "react-dom";
+import useUpload from "../customHooks/useUpload";
 
-const AddDetailsModal = () => {
+const AddPropertyModal = () => {
   const { hideModal } = useModal();
   const { uploadFiles, response, error, loading } = useUpload();
 
@@ -90,4 +91,4 @@ const AddDetailsModal = () => {
   );
 };
 
-export default AddDetailsModal;
+export default AddPropertyModal;

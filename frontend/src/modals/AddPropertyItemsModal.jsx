@@ -4,7 +4,7 @@ import { useModal } from "../store/ModalProvider";
 import { createPortal } from "react-dom";
 
 
-const AddCardModal = () => {
+const AddPropertyItemsModal = () => {
   const { hideModal } = useModal();
 
   const handleAddCard = () => {
@@ -27,4 +27,4 @@ const AddCardModal = () => {
         )
   );
 };
-export default AddCardModal;
+export default AddPropertyItemsModal;

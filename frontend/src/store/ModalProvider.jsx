@@ -1,7 +1,7 @@
 // ModalContext.js
 import React, { createContext, useState, useContext } from 'react';
-import AddCardModal from '../modals/AddCardModal';
-import AddDetailsModal from '../modals/AddDetailsModal';
+import AddPropertyItemModal from '../modals/AddPropertyItemsModal';
+import AddPropertyModal from '../modals/AddPropertyModal';
 
 // Create Context
 const ModalContext = createContext();
@@ -16,8 +16,8 @@ export const ModalProvider = ({ children }) => {
   return (
     <ModalContext.Provider value={{ modalType, showModal, hideModal }}>
       {children}
-      {modalType === 'addCard' && <AddCardModal />}
-      {modalType === 'addDetails' && <AddDetailsModal />}
+      {modalType === 'addProperty' && <AddPropertyModal />}
+      {modalType === 'AddPropertyItem' && <AddPropertyItemModal />}
     </ModalContext.Provider>
   );
 };
