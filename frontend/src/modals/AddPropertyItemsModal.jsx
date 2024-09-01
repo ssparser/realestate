@@ -26,17 +26,25 @@ const AddPropertyItemsModal = ({propertyName}) => {
   function handleImageChange(event, type) {
     const file = event.target.files[0];
     if (file) {
+      
+      const fileExtension = file.name.split('.').pop();
+      
+      const renamedFile = new File(
+        [file], 
+        `${type === "beforeImage" ? "before" : "after"}Image.${fileExtension}`, 
+        {type: file.type}
+      );
       const reader = new FileReader();
       reader.onloadend = () => {
         if (type === "beforeImage") {
-          setBeforeImage(file);
+          setBeforeImage(renamedFile);
           setBeforeImagePreview(reader.result);
         } else if (type === "afterImage") {
-          setAfterImage(file);
+          setAfterImage(renamedFile);
           setAfterImagePreview(reader.result);
         }
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(renamedFile);
     }
   }
 
