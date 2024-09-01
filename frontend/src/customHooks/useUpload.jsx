@@ -12,20 +12,30 @@ const useUpload = () => {
     setLoading(true);
     setError("");
     const formData = new FormData();
-    
+
     for (let i = 0; i < files.length; i++) {
       formData.append('files', files[i]);
     }
-    
-    formData.append('propertyName', propertyName);
-    formData.append('itemName', itemName);
-    
+
+    const sanitizedPropertyName = propertyName.replace(/^\/|\/$/g, '');
+    const sanitizedItemName = itemName.replace(/^\/|\/$/g, '');
+   
+
+    formData.append('propertyName', sanitizedPropertyName);
+
+    formData.append('itemName', sanitizedItemName);
+
     try {
+      console.log("Sending POST request with the following data:");
+      console.log("Form Data:", formData);
+      
+
       const response = await axios.post('/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
+      console.log(response);
       setResponse(response.data);
     } catch (err) {
       setError(err.message || 'An error occurred');

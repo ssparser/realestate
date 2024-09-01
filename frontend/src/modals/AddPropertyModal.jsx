@@ -32,7 +32,6 @@ const AddPropertyModal = () => {
       };
       reader.readAsDataURL(file);
     }
-    hideModal();
   };
 
   const handleSubmit = () => {
@@ -43,7 +42,7 @@ const AddPropertyModal = () => {
 
   return createPortal(
     <Dialog open={true} onClose={hideModal}>
-      <DialogTitle>Add Details</DialogTitle>
+      <DialogTitle>Add Property Details</DialogTitle>
       <DialogContent>
         <TextField
           autoFocus
@@ -54,6 +53,13 @@ const AddPropertyModal = () => {
           onChange={(e) => setPropertyName(e.target.value)}
         />
 
+        <input
+          accept="image/*"
+          style={{ display: 'none' }}
+          id="upload-image"
+          type="file"
+          onChange={handleImageChange}
+        />
         <label htmlFor="upload-image">
           <IconButton
             color="primary"

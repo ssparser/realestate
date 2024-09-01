@@ -14,26 +14,26 @@ function Dashboard() {
   const navigate = useNavigate();
   const { showModal } = useModal();
 
-  // const { response, error, loading } = useFetch({
-  //   url: "/folders",
-  //   method: "GET",
-  //   params: { prefix: "" },
-  // });
+  const { response, error, loading } = useFetch({
+    url: "/folders",
+    method: "GET",
+    params: { prefix: "" },
+  });
 
-  // useEffect(() => {
-  //   if (response != null) {
-  //     setFolders(response);
-  //   }
-  // }, [response]);
+  useEffect(() => {
+    if (response != null) {
+      setFolders(response);
+    }
+  }, [response]);
 
-  // const handleClick = (folder) => {
-  //   console.log(folder);
-  //   if (folder) {
-  //     navigate("/property", { state: { propertyName: folder } });
-  //   } else {
-  //     console.error("Folder name is undefined");
-  //   }
-  // };
+  const handleClick = (folder) => {
+    console.log(folder);
+    if (folder) {
+      navigate("/property", { state: { propertyName: folder } });
+    } else {
+      console.error("Folder name is undefined");
+    }
+  };
 
   const generateShareLink = async (folderName) => {
     try {
