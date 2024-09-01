@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.estate.backend.entity.ItemTokenEntity;
+import com.estate.backend.repository.ItemTokenRepository;
 import com.estate.backend.service.AWSS3RetrievalService;
 import com.estate.backend.service.TokenService;
 
@@ -52,4 +55,21 @@ public class ShareController {
         
         return ResponseEntity.ok(response);
     }
+
+    @Autowired
+    private ItemTokenRepository itemTokenRepository;
+
+    @PostMapping("/test")
+    public ResponseEntity<ItemTokenEntity> saveItemToken(@RequestBody ItemTokenEntity itemToken) {
+        try {
+            System.out.println("running");
+            ItemTokenEntity savedEntity = itemTokenRepository.save(itemToken);
+            return ResponseEntity.ok(savedEntity);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+
 }

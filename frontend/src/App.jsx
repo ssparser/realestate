@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Property from "./pages/Property";
 import Item from "./components/Item";
 import { ModalProvider } from "./store/ModalProvider";
-import SharedProperty from "./components/SharedProperty";
+import SharedProperty from "./pages/SharedProperty";
 
 function App() {
   return (

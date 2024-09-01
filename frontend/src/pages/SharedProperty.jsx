@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import DropdownMenu from './DropdownMenu';
+import DropdownMenu from '../components/DropdownMenu';
 
 function SharedProperty() {
   const { token } = useParams();
