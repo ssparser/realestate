@@ -10,7 +10,6 @@ import {
   CardMedia,
   Stack,
 } from "@mui/material";
-import OtherHousesIcon from '@mui/icons-material/OtherHouses';
 import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import useFetch from "../customHooks/useFetch";
@@ -26,7 +25,7 @@ function DropdownMenu({ propertyName }) {
     error: folderError,
     loading: folderLoading,
   } = useFetch({
-    url: "/folders",
+    url: "/PropertyFolders",
     method: "GET",
     params: { prefix: propertyName },
   });
@@ -34,6 +33,8 @@ function DropdownMenu({ propertyName }) {
   useEffect(() => {
     if (folderResponse) {
       setFolders(folderResponse);
+      console.log(folders);
+      
     }
   }, [folderResponse]);
 

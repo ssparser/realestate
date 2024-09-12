@@ -1,19 +1,18 @@
 package com.estate.backend.service;
 
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.amazonaws.services.s3.model.ListObjectsV2Request;
 import com.amazonaws.services.s3.model.ListObjectsV2Result;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
@@ -30,7 +29,24 @@ public class AWSS3RetrievalService {
         private static final List<String> IMAGE_EXTENSIONS = Arrays.asList(".jpg", ".jpeg", ".png", ".gif", ".bmp",
                         ".tiff", ".webp", ".svg", ".avif");
 
-        public List<String> listFolders(String prefix) {
+        public Page<String> listFolders(String prefix, Pageable pageable) {
+                ListObjectsV2Request req = new ListObjectsV2Request()
+                                .withBucketName(bucketName)
+                                .withPrefix(prefix)
+                                .withDelimiter("/");
+
+                return getPagedResult(req, pageable);
+        }
+
+        public Page<String> listFoldersNoPrefix(Pageable pageable) {
+                ListObjectsV2Request req = new ListObjectsV2Request()
+                                .withBucketName(bucketName)
+                                .withDelimiter("/");
+
+                return getPagedResult(req, pageable);
+        }
+
+        public List<String> listFoldersNoPagination(String prefix) {
 
                 ListObjectsV2Request req = new ListObjectsV2Request()
                                 .withBucketName(bucketName)
@@ -41,7 +57,7 @@ public class AWSS3RetrievalService {
                 return result.getCommonPrefixes();
         }
 
-        public List<String> listFoldersNoPreifx() {
+        public List<String> listFoldersNoPreifxNoPagination() {
 
                 ListObjectsV2Request req = new ListObjectsV2Request()
                                 .withBucketName(bucketName)
@@ -49,6 +65,29 @@ public class AWSS3RetrievalService {
                 ListObjectsV2Result result = amazonS3.listObjectsV2(req);
 
                 return result.getCommonPrefixes();
+        }
+
+        private Page<String> getPagedResult(ListObjectsV2Request req, Pageable pageable) {
+                List<String> allPrefixes = new ArrayList<>();
+                ListObjectsV2Result result;
+
+                do {
+                        result = amazonS3.listObjectsV2(req);
+                        allPrefixes.addAll(result.getCommonPrefixes());
+                        req.setContinuationToken(result.getNextContinuationToken());
+                } while (result.isTruncated());
+
+                int start = (int) pageable.getOffset();
+                int end = Math.min((start + pageable.getPageSize()), allPrefixes.size());
+
+                // Ensure start is not beyond the list size
+                start = Math.min(start, allPrefixes.size());
+
+                // Ensure end is not less than start
+                end = Math.max(end, start);
+
+                List<String> pageContent = allPrefixes.subList(start, end);
+                return new PageImpl<>(pageContent, pageable, allPrefixes.size());
         }
 
         public List<String> listFiles(String prefix) {

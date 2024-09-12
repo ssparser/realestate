@@ -1,20 +1,26 @@
 package com.estate.backend.controller;
 
-import com.estate.backend.domain.event.DocumentsUploaded;
-import com.estate.backend.service.AWSS3RetrievalService;
-import com.estate.backend.service.AWSService;
-import com.estate.backend.service.EventPublisher;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.estate.backend.domain.event.DocumentsUploaded;
+import com.estate.backend.service.AWSS3RetrievalService;
+import com.estate.backend.service.AWSService;
+import com.estate.backend.service.EventPublisher;
 
 
 @CrossOrigin(origins = "http://localhost:5173")
@@ -54,13 +60,27 @@ public class AWSController {
         }
     }
 
-    @GetMapping("/folders")
+   @GetMapping("/folders")
+    public Page<String> listFolders(
+            @RequestParam(defaultValue = "") String prefix,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "12") int size) {
+        
+        Pageable pageable = PageRequest.of(page, size);
+        
+        if(prefix.isEmpty()) {
+            return awss3RetrievalService.listFoldersNoPrefix(pageable);
+        }
+        return awss3RetrievalService.listFolders(prefix, pageable);
+    }
+
+    @GetMapping("/PropertyFolders")
     public List<String> listFolders(@RequestParam String prefix) {
         if(prefix == "")
         {
-            return awss3RetrievalService.listFoldersNoPreifx();
+            return awss3RetrievalService.listFoldersNoPreifxNoPagination();
         }
-        return awss3RetrievalService.listFolders(prefix);
+        return awss3RetrievalService.listFoldersNoPagination(prefix);
     }
 
     @GetMapping("/files")
