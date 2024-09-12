@@ -15,18 +15,18 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const { showModal } = useModal();
 
-  const { response, error, loading, refetch } = useFetch({
-    url: "/folders",
-    method: "GET",
-    params: { prefix: "", page: page, size: ITEMS_PER_PAGE },
-  });
+  // const { response, error, loading, refetch } = useFetch({
+  //   url: "/folders",
+  //   method: "GET",
+  //   params: { prefix: "", page: page, size: ITEMS_PER_PAGE },
+  // });
 
-  useEffect(() => {
-    if (response != null) {
-      setFolders(response.content);
-      setTotalPages(response.totalPages);
-    }
-  }, [response]);
+  // useEffect(() => {
+  //   if (response != null) {
+  //     setFolders(response.content);
+  //     setTotalPages(response.totalPages);
+  //   }
+  // }, [response]);
 
   const handleClick = useCallback((folder) => {
     if (folder) {
@@ -40,13 +40,17 @@ const Dashboard = () => {
     showModal("addProperty");
   }, [showModal]);
 
-  const handlePageChange = useCallback((event, value) => {
-    setPage(value - 1); 
-    refetch({ page: value - 1, size: ITEMS_PER_PAGE });
-  }, [refetch]);
+  const showshare = useCallback(() => {
+    showModal("SharePropertyModal");
+  }, [showModal]);
 
-  if (loading) return <CircularProgress />;
-  if (error) return <Typography color="error">Error: {error.message}</Typography>;
+  // const handlePageChange = useCallback((event, value) => {
+  //   setPage(value - 1); 
+  //   refetch({ page: value - 1, size: ITEMS_PER_PAGE });
+  // }, [refetch]);
+
+  // if (loading) return <CircularProgress />;
+  // if (error) return <Typography color="error">Error: {error.message}</Typography>;
 
   return (
     <>
@@ -54,7 +58,7 @@ const Dashboard = () => {
         {folders.length === 0 ? (
           <Typography variant="body1">No folders found.</Typography>
         ) : (
-          <Grid container spacing={2} sx={{ marginTop: "20px" }}>
+          <Grid container spacing={2} sx={{ paddingTop: "20px" }}>
             {folders.map((folder) => (
               <Grid item xs={12} sm={6} md={4} lg={3} key={folder}>
                 <PropertyCard
@@ -65,14 +69,15 @@ const Dashboard = () => {
             ))}
           </Grid>
         )}
-        <Pagination 
+        {/* <Pagination 
           count={totalPages} 
           page={page + 1} 
           onChange={handlePageChange} 
           sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}
-        />
+        /> */}
       </Container>
-      <BottomNavbar onClick={handleAddProperty} />
+      {/* <BottomNavbar onClick={handleAddProperty} /> */}
+      <BottomNavbar onClick={showshare} />
     </>
   );
 };

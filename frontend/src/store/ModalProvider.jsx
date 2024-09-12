@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext } from 'react';
 import AddPropertyItemModal from '../modals/AddPropertyItemsModal';
 import AddPropertyModal from '../modals/AddPropertyModal';
+import SharePropertyModal from '../modals/SharePropertyModal';
 
 // Create Context
 const ModalContext = createContext();
@@ -18,6 +19,7 @@ export const ModalProvider = ({ children }) => {
       {children}
       {modalState.type === 'addProperty' && <AddPropertyModal {...modalState.props} />}
       {modalState.type === 'AddPropertyItem' && <AddPropertyItemModal {...modalState.props} />}
+      {modalState.type === 'SharePropertyModal' && <SharePropertyModal {...modalState.props} />}
     </ModalContext.Provider>
   );
 };

@@ -14,7 +14,7 @@ import { useModal } from "../store/ModalProvider";
 import { createPortal } from "react-dom";
 import useUpload from "../customHooks/useUpload";
 
-const AddPropertyModal = () => {
+function AddPropertyModal (){
   const { hideModal } = useModal();
   const { uploadFiles, response, error, loading } = useUpload();
 
