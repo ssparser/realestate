@@ -13,10 +13,9 @@ import {
 import { useModal } from "../store/ModalProvider";
 import { createPortal } from "react-dom";
 import { addDays } from "date-fns";
-import { DateRange, DateRangePicker } from 'react-date-range';
-import 'react-date-range/dist/styles.css'; 
-import 'react-date-range/dist/theme/default.css';
-import {  WidthFull } from "@mui/icons-material";
+import { DateRange } from "react-date-range";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 
 function SharePropertyModal() {
   const { hideModal } = useModal();
@@ -28,19 +27,18 @@ function SharePropertyModal() {
     },
   ]);
 
-  
   return createPortal(
-    <Dialog open={true} onClose={hideModal}  maxWidth='md' >
+    <Dialog open={true} onClose={hideModal} maxWidth="md">
       <DialogTitle>Share mg Details With Customer</DialogTitle>
       <DateRange
-  editableDateInputs={true}
-  onChange={item => setState([item.selection])}
-  moveRangeOnFirstSelection={false}
-  ranges={state}
-  direction="horizontal"
-  months={2}
-  minDate={new Date()}
-/>
+        editableDateInputs={true}
+        onChange={(item) => setState([item.selection])}
+        moveRangeOnFirstSelection={false}
+        ranges={state}
+        direction="horizontal"
+        months={2}
+        minDate={new Date()}
+      />
     </Dialog>,
     document.getElementById("modal")
   );

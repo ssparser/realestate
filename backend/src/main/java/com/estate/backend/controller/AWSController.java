@@ -31,8 +31,6 @@ public class AWSController {
     @Autowired
     AWSService awsService;
 
-
-
     @Autowired
     AWSS3RetrievalService awss3RetrievalService;
 
@@ -76,7 +74,7 @@ public class AWSController {
 
     @GetMapping("/PropertyFolders")
     public List<String> listFolders(@RequestParam String prefix) {
-        if(prefix == "")
+        if("".equals(prefix)) // changed this from prefix == ""
         {
             return awss3RetrievalService.listFoldersNoPreifxNoPagination();
         }
