@@ -64,7 +64,7 @@ public class AWSController {
     public Page<String> listFolders(
             @RequestParam(defaultValue = "") String prefix,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "12") int size) {
+            @RequestParam(defaultValue = "8") int size) {
         
         Pageable pageable = PageRequest.of(page, size);
         

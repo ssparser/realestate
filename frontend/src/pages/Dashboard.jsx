@@ -6,11 +6,11 @@ import PropertyCard from "../components/PropertyCard";
 import useFetch from "../customHooks/useFetch";
 import BottomNavbar from "../components/common/BottomNavbar";
 
-const ITEMS_PER_PAGE = 12; // Adjust as needed
+const ITEMS_PER_PAGE = 8; 
 
 const Dashboard = () => {
   const [folders, setFolders] = useState([]);
-  const [page, setPage] = useState(0); // Start from 0 for backend compatibility
+  const [page, setPage] = useState(0); 
   const [totalPages, setTotalPages] = useState(1);
   const navigate = useNavigate();
   const { showModal } = useModal();
