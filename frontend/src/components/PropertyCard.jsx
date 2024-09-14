@@ -25,31 +25,30 @@ const PropertyCard = memo(({ propertyName, onClick }) => {
   }, [response]);
 
   const showshare = useCallback(() => {
-    showModal("SharePropertyModal",{propertyName});
+    showModal("SharePropertyModal", { propertyName });
   }, [showModal, propertyName]);
 
   return (
-    <Card sx={{ maxWidth: 345, maxHeight: 500, p: 2, mb: 3 }}>
-      <CardActionArea onClick={onClick}>
-        <CardMedia
-          component="img"
-          height="200"
-          image={houseImg}
-          alt={propertyName.slice(0, -1)}
-          sx={{ objectFit: "cover" }}
-        />
-        <CardContent sx={{ backgroundColor: "white" }}>
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            sx={{ fontSize: "1rem" }}
-          >
-            {propertyName.slice(0, -1)}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
+    <Card sx={{ maxWidth: 345, maxHeight: 500, p: 2, mb: 3,  display: "flex", flexDirection: "column"}}>
+      <CardMedia
+        component="img"
+        height="200"
+        image={houseImg}
+        alt={propertyName.slice(0, -1)}
+        sx={{ objectFit: "cover" }}
+      />
+      <CardContent sx={{ backgroundColor: "white" }}>
+        <Typography gutterBottom variant="h6"   sx={{  }}>
+          {propertyName.slice(0, -1)}
+        </Typography>
+      </CardContent>
+      <CardActions
+        component="div"
+        sx={{
+          display: "inline-flex",
+          justifyContent: "space-evenly"
+                  }}
+      >
         <Button
           variant="contained"
           color="primary"
@@ -57,6 +56,14 @@ const PropertyCard = memo(({ propertyName, onClick }) => {
           sx={{ mt: 1 }}
         >
           Share
+        </Button>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={onClick}
+          sx={{ mt: 1, ml: 0 }}
+        >
+          Show Property
         </Button>
       </CardActions>
     </Card>

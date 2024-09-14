@@ -12,17 +12,16 @@ function Customtypography({name, fontWeight, letterSpacing = 0,  variant, ml = 0
         <Typography
               variant={variant}
               noWrap={false}
-              component="a"
               sx={{
                 display: 'flex',
                 fontFamily: "monospace",
                 fontWeight: fontWeight,
                 letterSpacing: letterSpacing,
-                color: "black",
+                color: "rgb(66,137,52)",
                 textDecoration: "none",
                 ml : ml,
                 mr : mr,
-                wordSpacing: wordSpacing
+                wordSpacing: wordSpacing,
               }}
             >
               {name}

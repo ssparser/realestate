@@ -18,7 +18,7 @@ function Navbar() {
     >
       <Toolbar disableGutters>
         <Box sx={{ display: "flex", flexGrow: 1, justifyContent: "flexstart" }}>
-          <Custombutton name="Propertify" />
+          <Customtypography name="Propertify" ml={1} fontWeight={800} variant='h5'/>
         </Box>
       </Toolbar>
     </AppBar>
