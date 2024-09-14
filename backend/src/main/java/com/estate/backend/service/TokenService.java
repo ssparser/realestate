@@ -1,9 +1,8 @@
 package com.estate.backend.service;
 
-import java.time.Instant;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.estate.backend.entity.ItemTokenEntity;
 import com.estate.backend.repository.ItemTokenRepository;
-import java.util.Random;
 
 
 @Service
@@ -22,7 +20,7 @@ public class TokenService {
 
     private Map<String, String> tokenToFolderMap = new ConcurrentHashMap<>();
 
-    public String generateToken(String folderName) {
+    public String generateToken(String folderName, Long TTL) {
         ItemTokenEntity item = new ItemTokenEntity();
         Random rand = new Random();
 
@@ -30,13 +28,14 @@ public class TokenService {
         String token = UUID.randomUUID().toString();
         item.setToken(token);
         item.setFolderName(folderName);
-        Calendar calendar = Calendar.getInstance();
+        System.out.println(TTL);
+        // Calendar calendar = Calendar.getInstance();
 
-        calendar.add(Calendar.MINUTE, 1);
+        // calendar.add(Calendar.MINUTE, 1);
 
-        long ttlInSeconds = calendar.getTimeInMillis() / 1000;
+        // long ttlInSeconds = calendar.getTimeInMillis() / 1000;
 
-        item.setToExpire(ttlInSeconds);
+        item.setToExpire(TTL);
     
         itemTokenRepository.save(item);
         return token;

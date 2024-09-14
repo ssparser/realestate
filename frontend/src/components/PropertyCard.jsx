@@ -7,14 +7,16 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Button, CardActions } from "@mui/material";
 import axios from "axios";
+import { useModal } from "../store/ModalProvider";
 
-const PropertyCard = memo(({ propertyName, onClick, showModal }) => {
+const PropertyCard = memo(({ propertyName, onClick }) => {
   const [houseImg, setHouseImg] = useState(null);
   const { response, error, loading } = useFetch({
     url: "/image",
     method: "GET",
     params: { prefix: propertyName },
   });
+  const { showModal } = useModal();
 
   useEffect(() => {
     if (response && response.length > 0) {
@@ -22,20 +24,9 @@ const PropertyCard = memo(({ propertyName, onClick, showModal }) => {
     }
   }, [response]);
 
-  const generateShareLink = useCallback(async (event) => {
-    event.stopPropagation(); 
-    try {
-      const response = await axios.post(`http://localhost:8080/api/share/generate?folderName=${propertyName}`);
-      const token = response.data;
-      const shareLink = `http://localhost:5173/shared/${token}`;
-      
-      await navigator.clipboard.writeText(shareLink);
-      showModal('Share Link', 'Share link copied to clipboard!');
-    } catch (error) {
-      console.error('Failed to generate share link', error);
-      showModal('Error', 'Failed to generate share link');
-    }
-  }, [propertyName, showModal]);
+  const showshare = useCallback(() => {
+    showModal("SharePropertyModal",{propertyName});
+  }, [showModal, propertyName]);
 
   return (
     <Card sx={{ maxWidth: 345, maxHeight: 500, p: 2, mb: 3 }}>
@@ -62,7 +53,7 @@ const PropertyCard = memo(({ propertyName, onClick, showModal }) => {
         <Button
           variant="contained"
           color="primary"
-          onClick={generateShareLink}
+          onClick={showshare}
           sx={{ mt: 1 }}
         >
           Share
@@ -72,4 +63,4 @@ const PropertyCard = memo(({ propertyName, onClick, showModal }) => {
   );
 });
 
-export default PropertyCard;
+export default React.memo(PropertyCard);
